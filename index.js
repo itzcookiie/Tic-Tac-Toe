@@ -206,7 +206,7 @@ function allFreeSpots() {
 
 function decideStartingPlayer() {
     const userStarts = Math.random() > 0.5 ? true : false;
-    const symbolObj = Math.random() > 0.5 ? {symbol: 'cross', colour: 'black'} : {symbol: 'cross', colour: 'white'};
+    const symbolObj = Math.random() > 0.5 ? {symbol: 'cross', colour: 'black'} : {symbol: 'nought', colour: 'white'};
     user.symbol = symbolObj.symbol
     user.colour = symbolObj.colour;
     computer.symbol = symbolObj.symbol === 'cross' ? 'nought' : 'cross'
