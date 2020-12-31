@@ -174,7 +174,7 @@ function calculateResults({ player, symbol, colour }) {
         createCanvas(matchingCombination);
         stopGame = true;
         gameOverMenu.style.display = 'flex';
-        gameOverMenuTitle.innerText = `${player} WINS!`;
+        gameOverMenuTitle.innerText = `${player} wins`;
         gameOverMenuTitle.style.color = colour;
         return true;
     }
