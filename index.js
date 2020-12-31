@@ -194,7 +194,7 @@ function findMatchingCombinations(spots, combinations) {
 }
 
 function isADraw() {
-if(allFreeSpots().length === 0) {
+    if(allFreeSpots().length === 0) {
         return true;
     }
 }
@@ -225,8 +225,6 @@ function decideStartingPlayer() {
 }
 
 function createCanvas(combination) {
-
-
     switch(combination.join('')) {
         case '012': {
             drawHorizontalLine(50, width);
@@ -253,13 +251,11 @@ function createCanvas(combination) {
             break;
         }
         case '048': {
-            const startingWidth = 0
-            drawDiagonalLine(startingWidth, width, height);
+            drawDiagonalLine(0, width, height);
             break;
         }
         case '246': {
-            const startingWidth = 0;
-            drawDiagonalLine(width, startingWidth, height);
+            drawDiagonalLine(width, 0, height);
             break;
         }
     }
