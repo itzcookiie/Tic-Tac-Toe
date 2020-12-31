@@ -230,8 +230,9 @@ function decideStartingPlayer() {
             waitTurn = false;
             return;
         }, 1000)
+    } else {
+        displayUI('USERS TURN', false);
     }
-    displayUI('USERS TURN', false);
 }
 
 function createCanvas(combination) {
