@@ -23,6 +23,21 @@ body {
     background-color: #9d1dff;
 }
 
+.welcome-message {
+    position: absolute;
+    left: 5%;
+    top: 40%;
+    height: 250px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: pink;
+    font-size: 2.5rem;
+    text-align: center;
+
+}
+
 .start-menu {
     height: 100%;
     display: flex;
