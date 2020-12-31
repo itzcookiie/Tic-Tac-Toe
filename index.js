@@ -7,7 +7,6 @@ const gameOverMenu = document.querySelector('.game-over-menu');
 const gameOverMenuTitle = document.querySelector('.game-over-menu__title');
 const uiMessage = document.getElementById('ui-message');
 const canvasBoard = document.getElementById('gamecube');
-const adContainer = document.getElementById('page-content');
 const playButton = document.getElementById('playButton');
 
 const context = canvasBoard.getContext('2d');
@@ -34,7 +33,6 @@ function restartGame() {
     [...gameSpots].forEach(removeSymbol);
     stopGame = false;
     context.clearRect(0,0, width, height)
-    decideStartingPlayer();
 }
 
 function removeSymbol(symbol) {
@@ -49,17 +47,13 @@ document.addEventListener('keydown', e => {
             changeScreens(startMenu, adScreen);
             playButton.click();
         }
-        if(e.key === 'Backspace') {
-            window.location = 'https://www.apple.com/uk/';
-        }
+        if(e.key === 'Backspace') window.location = 'https://www.apple.com/uk/';
         return;
     }
 
     const showingAdScreen = getComputedStyle(adScreen).display;
 
-    if(showingAdScreen !== 'none') {
-        return;
-    }
+    if(showingAdScreen !== 'none') return;
 
     const showingGameOverMenu = getComputedStyle(gameOverMenu).display;
 
@@ -69,11 +63,13 @@ document.addEventListener('keydown', e => {
             hideGameBoard();
             changeScreens(gameOverMenu, adScreen);
             init();
-            playButton.click();
+            const waitAd = setTimeout(() => {
+                clearTimeout(waitAd);
+                playButton.click();
+            }, 1000);
         }
-        if(e.key === 'Backspace') {
-            window.location = 'https://www.apple.com/uk/';
-        }
+        if(e.key === 'Backspace') window.location = 'https://www.apple.com/uk/';
+        
         return;
     }
 
@@ -191,10 +187,11 @@ function calculateResults({ player, symbol, colour }) {
 
 function findMatchingCombinations(spots, combinations) {
     return combinations.filter(combination => spots.filter(spot => combination.includes(+spot.id)).length === 3).flat();
+
 }
 
 function isADraw() {
-if(allFreeSpots().length === 0) {
+    if(allFreeSpots().length === 0) {
         return true;
     }
 }
@@ -206,7 +203,7 @@ function allFreeSpots() {
 
 function decideStartingPlayer() {
     const userStarts = Math.random() > 0.5 ? true : false;
-    const symbolObj = Math.random() > 0.5 ? {symbol: 'cross', colour: 'black'} : {symbol: 'cross', colour: 'white'};
+    const symbolObj = Math.random() > 0.5 ? {symbol: 'cross', colour: 'black'} : {symbol: 'nought', colour: 'white'};
     user.symbol = symbolObj.symbol
     user.colour = symbolObj.colour;
     computer.symbol = symbolObj.symbol === 'cross' ? 'nought' : 'cross'
@@ -225,8 +222,7 @@ function decideStartingPlayer() {
 }
 
 function createCanvas(combination) {
-
-
+    context.beginPath();
     switch(combination.join('')) {
         case '012': {
             drawHorizontalLine(50, width);
@@ -253,13 +249,11 @@ function createCanvas(combination) {
             break;
         }
         case '048': {
-            const startingWidth = 0
-            drawDiagonalLine(startingWidth, width, height);
+            drawDiagonalLine(0, width, height);
             break;
         }
         case '246': {
-            const startingWidth = 0;
-            drawDiagonalLine(width, startingWidth, height);
+            drawDiagonalLine(width, 0, height);
             break;
         }
     }

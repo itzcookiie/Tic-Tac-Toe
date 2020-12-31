@@ -141,6 +141,7 @@ function onAdEvent(adEvent) {
       }
       changeAdScreen();
       adsManager.destroy();
+      adsLoader.contentComplete();
       break;
   }
 }
