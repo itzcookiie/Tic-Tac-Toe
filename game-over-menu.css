@@ -10,7 +10,7 @@
 
 .game-over-menu__title {
     z-index: 1;
-    color: grey;
+    color: rgb(0, 0, 0);
     font-size: 10rem;
 }
 

@@ -9,6 +9,17 @@ const uiMessage = document.getElementById('ui-message');
 const canvasBoard = document.getElementById('gamecube');
 const playButton = document.getElementById('playButton');
 
+const combinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+]
+
 const context = canvasBoard.getContext('2d');
 const { width, height } = canvasBoard;
 context.lineWidth = 6;
@@ -32,7 +43,9 @@ const computer = {
 function restartGame() {
     [...gameSpots].forEach(removeSymbol);
     stopGame = false;
+    waitTurn = false;
     context.clearRect(0,0, width, height)
+    user.symbol = user.colour = computer.symbol = computer.colour = '';
 }
 
 function removeSymbol(symbol) {
@@ -60,7 +73,7 @@ document.addEventListener('keydown', e => {
     if(showingGameOverMenu !== 'none') {
         if(e.key === 'Enter') {
             restartGame();
-            hideGameBoard();
+            gameBoard.style.display = 'none';
             changeScreens(gameOverMenu, adScreen);
             init();
             const waitAd = setTimeout(() => {
@@ -69,7 +82,6 @@ document.addEventListener('keydown', e => {
             }, 1000);
         }
         if(e.key === 'Backspace') window.location = 'https://www.apple.com/uk/';
-        
         return;
     }
 
@@ -84,7 +96,7 @@ document.addEventListener('keydown', e => {
         displayUI('COMPUTERS TURN');
         const waitBotTurn = setTimeout(() => {
             clearTimeout(waitBotTurn);
-            handleComputer(computer.symbol)
+            handleComputer()
             const computerResults = calculateResults(computer)
             if(computerResults) {
                 return;
@@ -97,10 +109,6 @@ document.addEventListener('keydown', e => {
 function changeScreens(initalScreen, screenToChange, displayOption='block') {
     initalScreen.style.display = 'none';
     screenToChange.style.display = displayOption;
-}
-
-function hideGameBoard() {
-    gameBoard.style.display = 'none';
 }
 
 export function changeAdScreen() {
@@ -144,10 +152,25 @@ function displayUI(message, wait=true) {
     uiMessage.innerText = message;
 }
 
-function handleComputer(symbol) {
+function handleComputer() {
     const freeSpots = allFreeSpots();
     const randomNumber = Math.floor(Math.random() * freeSpots.length);
-    return play(freeSpots[randomNumber], symbol);
+    return tryToWin() ? null : play(freeSpots[randomNumber], computer.symbol);
+}
+
+function tryToWin() {
+    const gameSpots = document.querySelector('.game-grid').children;
+    const takenSpots = [...gameSpots].filter(spot => spot.classList.contains(computer.symbol));
+    const winningCombination = findMatchingCombinations(takenSpots, 2);
+    const canPlay = winningCombination.some(spotID => {
+        const spot = document.getElementById(spotID).classList;
+        return !(spot.contains('cross') || spot.contains('nought'));
+    })
+    if(winningCombination.length && canPlay) {
+        winningCombination.forEach(spot => play(document.getElementById(spot), computer.symbol))
+        return true;
+    }
+    return false
 }
 
 function validPosition(spot) {
@@ -155,20 +178,9 @@ function validPosition(spot) {
 }
 
 function calculateResults({ player, symbol, colour }) {
-    const combinations = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ]
-
     const gameSpots = document.querySelector('.game-grid').children;
     const playerSpots = [...gameSpots].filter(spot => spot.classList.contains(symbol));
-    const matchingCombination = findMatchingCombinations(playerSpots, combinations);
+    const matchingCombination = findMatchingCombinations(playerSpots);
 
     if(matchingCombination.length) {
         createCanvas(matchingCombination);
@@ -185,9 +197,9 @@ function calculateResults({ player, symbol, colour }) {
     }
 }
 
-function findMatchingCombinations(spots, combinations) {
-    return combinations.filter(combination => spots.filter(spot => combination.includes(+spot.id)).length === 3).flat();
-
+function findMatchingCombinations(spots, numOfMatchingCombinations=3) {
+    const matchingCombinations = combinations.find(combination => spots.filter(spot => combination.includes(+spot.id)).length === numOfMatchingCombinations);
+    return matchingCombinations || [];
 }
 
 function isADraw() {
@@ -219,6 +231,7 @@ function decideStartingPlayer() {
             return;
         }, 1000)
     }
+    displayUI('USERS TURN', false);
 }
 
 function createCanvas(combination) {
