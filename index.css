@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", "sans-serif";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+    position: relative;
+    height: 720px;
+    width: 1280px;
+    background-color: #9d1dff;
+}
+
+.start-menu {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.title {
+    color: white;
+    font-size: 5rem;
+}
+
+.game-grid-container {
+    position: relative;
+    height: 300px;
+    width: 300px;
+}
+
+.game-grid {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+/* .game-grid::before {
+    content: '';
+    position: absolute;
+    height: calc(100% + 100px);
+    width: 10px;
+    background-color: violet;
+    left: calc(150px - 5px);
+    top: calc(-50px + 5px);
+    transform: rotate(-45deg);
+} */
+
+.game-grid > div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.game-grid div:nth-child(1) {
+    border-width: 0 2px 2px 0;
+}
+
+.game-grid div:nth-child(2) {
+    border-width: 0 2px 2px 2px;
+}
+
+.game-grid div:nth-child(3) {
+    border-width: 0 0 2px 2px;
+}
+
+.game-grid div:nth-child(4) {
+    border-width: 2px 2px 2px 0;
+}
+
+.game-grid div:nth-child(6) {
+    border-width: 2px 0 2px 2px;
+}
+
+.game-grid div:nth-child(7) {
+    border-width: 2px 2px 0 0;
+}
+
+.game-grid div:nth-child(8) {
+    border-width: 2px 2px 0 2px;
+}
+
+.game-grid div:nth-child(9) {
+    border-width: 2px 0 0 2px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}
+
+.btn {
+    font-family: inherit;
+    font-size: 3rem;
+    padding: 10px 25px;
+    border-radius: 10px;
+    background: chocolate;
+    color: white;
+    font-weight: bold;
+    border: 0;
+}
+
+.btn:hover {
+    background-color: #f9ad76;
+}
+
+.btn:focus {
+    outline: 0;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}

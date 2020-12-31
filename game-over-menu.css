@@ -1,0 +1,34 @@
+.game-over-menu {
+    display: none;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+    top: -100%;
+}
+
+.game-over-menu__title {
+    z-index: 1;
+    color: grey;
+    font-size: 10rem;
+}
+
+.game-over-menu__buttons {
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+}
+
+.game-over-menu__buttons .btn {
+    font-size: 3rem;
+}
+
+.overlay {
+    background-color: rgb(255 152 152);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    opacity: 0.75;
+}
