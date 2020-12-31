@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="game-board.css" />
+    <link rel="stylesheet" href="game-over-menu.css" />
+    <link rel="stylesheet" href="ad-screen.css" />
+    <link rel="stylesheet" href="google-ads.css" />
+    <title>Tic Tac Toe</title>
+    <script type="module" defer src="index.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <section class="start-menu">
+            <h1 class="title">Tic Tac Toe</h1>
+            <img src="tic.png" />
+            <div class="buttons">
+                <button class="btn play">PLAY</button>
+                <button class="btn quit">QUIT</button>
+            </div>
+        </section>
+        <section class="ad-screen">
+            <div id="mainContainer">
+                <div id="content">
+                    <video id="contentElement">
+                        <source src="https://storage.googleapis.com/gvabox/media/samples/stock.mp4">
+                        </source>
+                    </video>
+                </div>
+                <div id="adContainer"></div>
+            </div>
+            <button id="playButton">Play</button>
+        </section>
+        <section class="game-board">
+            <h2 id="ui-message" class="ui-message">USERS TURN</h2>
+            <div class="game-grid-container">
+                <div class="game-grid">
+                    <div id="0" class="active"></div>
+                    <div id="1"></div>
+                    <div id="2"></div>
+                    <div id="3"></div>
+                    <div id="4"></div>
+                    <div id="5"></div>
+                    <div id="6"></div>
+                    <div id="7"></div>
+                    <div id="8"></div>
+                </div>
+                <canvas id="gamecube" class="gamecube" width="350" height="350"></canvas>
+            </div>
+        </section>
+        <section class="game-over-menu">
+            <div class="overlay"></div>
+            <h1 class="game-over-menu__title"></h1>
+            <div class="game-over-menu__buttons">
+                <button class="btn play">PLAY AGAIN</button>
+                <button class="btn quit">QUIT</button>
+            </div>
+        </section>
+    </div>
+    <script src="http://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script type="module" src="ads.js"></script>
+</body>
+
+</html>
